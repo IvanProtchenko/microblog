@@ -9,3 +9,29 @@ users_table = Table('wiki_users', metadata,
     Column('password', String(50))
 )
 metadata.create_all(engine)
+
+
+'''
+#чтение документа
+
+range_name = 'list1!A:D'
+table = service.spreadsheets().values().get(spreadsheetId=spreadsheetId, range=range_name).execute()
+print(table)
+
+#обновление документа
+cell='A1'
+list_title='list1'
+service.spreadsheets().values().batchUpdate(spreadsheetId = spreadsheetId, 
+body = {
+"valueInputOption": "USER_ENTERED",
+"data": [
+    {"range": list_title + "!" + cell,
+     "majorDimension": "ROWS",
+     "values": [['вставка1','вставка2','вставка3'],['z1','z2','z3','z4']]}
+
+]
+}).execute()
+
+#очистка документа
+service.spreadsheets().values().clear(spreadsheetId=spreadsheetId,range=range_name).execute()
+'''
